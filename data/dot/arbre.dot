@@ -1,0 +1,16 @@
+digraph arbre {
+    node [shape=record, height=.1]
+    edge [tailclip=false, arrowtail=dot, dir=both];
+
+    n0x562944b39840 [label="<fg> | {comment | 4} | <fd>"];
+    n0x562944b39700 [label="<fg> | {bien | 1} | <fd>"];
+    n0x562944b397a0 [label="<fg> | {allez | 1} | <fd>"];
+    n0x562944b397f0 [label="<fg> | {bonjour | 1} | <fd>"];
+    n0x562944b39700:fg -> n0x562944b397a0;
+    n0x562944b39700:fd -> n0x562944b397f0;
+    n0x562944b396b0 [label="<fg> | {vous | 1} | <fd>"];
+    n0x562944b39750 [label="<fg> | {zoo | 1} | <fd>"];
+    n0x562944b396b0:fd -> n0x562944b39750;
+    n0x562944b39840:fg -> n0x562944b39700;
+    n0x562944b39840:fd -> n0x562944b396b0;
+}

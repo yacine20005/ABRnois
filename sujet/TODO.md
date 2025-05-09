@@ -42,7 +42,7 @@
   - Effectuer la rotation droite sur le fils droit, puis la rotation gauche sur `*A`.
   - Mettre à jour correctement le pointeur `*A`.
 
-- [-] (Je dois encore faire la partie 2) **Implémenter `int insert_ABRnois(ABRnois * A, char * mot)`**
+- [x] **Implémenter `int insert_ABRnois(ABRnois * A, char * mot)`**
   - **Partie 1 : Insertion type ABR**
     - Parcourir l'arbre pour trouver l'emplacement d'insertion basé sur l'ordre lexicographique (`strcmp`).
     - Si le mot existe déjà : incrémenter `nb_occ` du nœud existant et ne pas insérer.

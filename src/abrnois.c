@@ -58,30 +58,52 @@ void rotation_droite_gauche(ABRnois *A)
     rotation_gauche(A);
 }
 
-int insert_abr(ABRnois *A, char *mot)
+int insert_ABRnois(ABRnois *A, char *mot)
 {
-    if (mot == NULL)
+    if (mot == NULL) // Check if the word is NULL
     {
         return 1;
     }
-    if (*A == NULL)
+
+    if (*A == NULL) // If the tree is empty, create a new node
     {
         *A = alloue_noeud(mot);
+        if (*A == NULL) {
+            return 1; 
+        }
         return 0;
     }
-    if (strcmp(mot, (*A)->mot) < 0) // The word is lexicographically smaller
+
+    int cmp = strcmp(mot, (*A)->mot);
+
+    if (cmp < 0) // The word is lexicographically smaller
     {
-        insert_abr(&((*A)->fg), mot);
+        int status = insert_ABRnois(&((*A)->fg), mot); // Insert in the left subtree
+        if (status != 0) {
+            return status;
+        }
+        if ((*A)->fg != NULL && (*A)->fg->nb_occ > (*A)->nb_occ) // The priority of the inserted node is greater
+        {
+            rotation_droite(A);
+        }
         return 0;
     }
-    else if (strcmp(mot, (*A)->mot) > 0) // The word is lexicographically greater
+
+    else if (cmp > 0) // The word is lexicographically larger
     {
-        insert_abr(&((*A)->fd), mot);
+        int status = insert_ABRnois(&((*A)->fd), mot); // Insert in the right subtree
+        if (status != 0) {
+            return status;
+        }
+        if ((*A)->fd != NULL && (*A)->fd->nb_occ > (*A)->nb_occ) // The priority of the inserted node is greater
+        {
+            rotation_gauche(A);
+        }
         return 0;
     }
-    else // The word is already present, so we increment the counter
+    else // The word is already present
     {
         (*A)->nb_occ++;
+        return 0;
     }
-    return 0;
 }

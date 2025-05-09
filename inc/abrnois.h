@@ -6,7 +6,7 @@ typedef struct _node
     char *mot;
     int nb_occ;
     struct _node *fg, *fd;
-} Node, *ABRnois ;
+} Node, *ABRnois;
 
 /**
  * @brief Allocate a new node with the given word.
@@ -14,7 +14,7 @@ typedef struct _node
  * @param mot the word to store in the node
  * @return Node* the allocated node
  */
-Node * alloue_noeud(char *);
+Node *alloue_noeud(char *);
 
 /**
  * @brief Perform a left rotation on the given tree.
@@ -49,9 +49,9 @@ void rotation_droite_gauche(ABRnois *);
  *
  * @param A the tree to insert into
  * @param mot the word to insert
- * 
+ *
  * @return int 0 on success, 1 on failure
  */
-int insert_abr(ABRnois*, char *);
+int insert_ABRnois(ABRnois *, char *);
 
 #endif // ABRNOIS_H

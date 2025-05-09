@@ -6,23 +6,21 @@
 #include <stdlib.h>
 #include <string.h>
 
-int main(){
+int main()
+{
     ABRnois arbre = NULL;
 
-    printf("Test de alloue_noeud:\n");
-    insert_abr(&arbre, "motC");
-    insert_abr(&arbre, "motA");
-    insert_abr(&arbre, "motE");
-    insert_abr(&arbre, "motB");
-    insert_abr(&arbre, "motD");
+    insert_ABRnois(&arbre, "vous");
+    insert_ABRnois(&arbre, "bien");
+    insert_ABRnois(&arbre, "zoo");
+    insert_ABRnois(&arbre, "allez");
+    insert_ABRnois(&arbre, "bonjour");
+    for (int i = 0; i < 4; i++)
+    {
+        insert_ABRnois(&arbre, "comment");
+    }
 
-    generate_pdf("arbre_initial", arbre);
+    generate_pdf("arbre", arbre);
 
-    rotation_gauche(&arbre);
-    generate_pdf("arbre_apres_rotation_gauche", arbre);
-
-    rotation_droite(&arbre);
-    generate_pdf("arbre_apres_rotation_droite", arbre);
-   
     return 0;
 }
