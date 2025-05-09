@@ -4,7 +4,7 @@
 
 - [x] Copier/coller les définitions des structures `_noeud` (et `Noeud`, `ABRnois`), `_cell` (et `Cell`, `Liste`) fournies dans `abrnois.c`.
 
-- [ ] **Implémenter `Noeud * alloue_noeud(char * mot)`**
+- [x] **Implémenter `Noeud * alloue_noeud(char * mot)`**
   - Allouer dynamiquement la mémoire pour un `Noeud`.
   - Allouer dynamiquement la mémoire pour le champ `mot` et copier la chaîne `mot` passée en argument (utiliser `strdup` ou `malloc` + `strcpy`). Attention à la gestion d'erreur.
   - Initialiser `nb_occ` à 1.
@@ -21,28 +21,28 @@
 
 ## III. Opérations Fondamentales sur l'ABRnois (abrnois.c)
 
-- [ ] **Implémenter `void rotation_gauche(ABRnois * A)`**
+- [x] **Implémenter `void rotation_gauche(ABRnois * A)`**
   - Vérifier que `*A` et son fils droit (`(*A)->fd`) ne sont pas `NULL`.
   - Effectuer la rotation gauche standard (pivot = fils droit).
   - Mettre à jour correctement le pointeur `*A`.
 
-- [ ] **Implémenter `void rotation_droite(ABRnois * A)`**
+- [x] **Implémenter `void rotation_droite(ABRnois * A)`**
   - Vérifier que `*A` et son fils gauche (`(*A)->fg`) ne sont pas `NULL`.
   - Effectuer la rotation droite standard (pivot = fils gauche).
   - Mettre à jour correctement le pointeur `*A`.
   - _Note : Les fonctions prennent `ABRnois *A` (pointeur vers pointeur de Noeud) pour pouvoir modifier la racine du sous-arbre._
 
-- [ ] **Implémenter `void rotation_gauche_droite(ABRnois * A)`**
+- [x] **Implémenter `void rotation_gauche_droite(ABRnois * A)`**
   - Vérifier que `*A` et son fils gauche (`(*A)->fg`) ne sont pas `NULL`.
   - Effectuer la rotation gauche sur le fils gauche, puis la rotation droite sur `*A`.
   - Mettre à jour correctement le pointeur `*A`.
 
-- [ ] **Implémenter `void rotation_droite_gauche(ABRnois * A)`**
+- [x] **Implémenter `void rotation_droite_gauche(ABRnois * A)`**
   - Vérifier que `*A` et son fils droit (`(*A)->fd`) ne sont pas `NULL`.
   - Effectuer la rotation droite sur le fils droit, puis la rotation gauche sur `*A`.
   - Mettre à jour correctement le pointeur `*A`.
 
-- [ ] **Implémenter `int insert_ABRnois(ABRnois * A, char * mot)`**
+- [-] (Je dois encore faire la partie 2) **Implémenter `int insert_ABRnois(ABRnois * A, char * mot)`**
   - **Partie 1 : Insertion type ABR**
     - Parcourir l'arbre pour trouver l'emplacement d'insertion basé sur l'ordre lexicographique (`strcmp`).
     - Si le mot existe déjà : incrémenter `nb_occ` du nœud existant et ne pas insérer.
@@ -74,7 +74,6 @@
   - **Partie 3 : Tri de la liste extraite**
     - Trier la liste chaînée `*lst` par ordre alphabétique des `mot`.
   - Retourner `count`.
-
 
 ## V. Programme Principal (main dans abrnois.c)
 

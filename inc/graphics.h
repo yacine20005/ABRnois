@@ -53,7 +53,8 @@ void generate_dot(FILE *, ABRnois);
  * @param filename the name of the output PDF file and of the DOT file
  * @param a the tree to draw
  *
+ * @return int 0 on success, 1 on failure
  */
-void generate_pdf(char *, ABRnois a);
+int generate_pdf(char *, ABRnois);
 
 #endif // ABRNOIS_H
