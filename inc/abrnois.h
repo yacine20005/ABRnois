@@ -14,7 +14,7 @@ typedef struct _node
  * @param mot the word to store in the node
  * @return Node* the allocated node
  */
-Node *alloue_noeud(char *);
+Node *allocate_node(char *);
 
 /**
  * @brief Perform a left rotation on the given tree.

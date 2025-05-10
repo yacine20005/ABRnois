@@ -3,7 +3,7 @@
 #include <string.h>
 #include "abrnois.h"
 
-Node *alloue_noeud(char *mot)
+Node *allocate_node(char *mot)
 {
     Node *new_noeud = malloc(sizeof(Node));
     if (new_noeud == NULL)
@@ -67,9 +67,10 @@ int insert_ABRnois(ABRnois *A, char *mot)
 
     if (*A == NULL) // If the tree is empty, create a new node
     {
-        *A = alloue_noeud(mot);
-        if (*A == NULL) {
-            return 1; 
+        *A = allocate_node(mot);
+        if (*A == NULL)
+        {
+            return 1;
         }
         return 0;
     }
@@ -79,7 +80,8 @@ int insert_ABRnois(ABRnois *A, char *mot)
     if (cmp < 0) // The word is lexicographically smaller
     {
         int status = insert_ABRnois(&((*A)->fg), mot); // Insert in the left subtree
-        if (status != 0) {
+        if (status != 0)
+        {
             return status;
         }
         if ((*A)->fg != NULL && (*A)->fg->nb_occ > (*A)->nb_occ) // The priority of the inserted node is greater
@@ -92,7 +94,8 @@ int insert_ABRnois(ABRnois *A, char *mot)
     else if (cmp > 0) // The word is lexicographically larger
     {
         int status = insert_ABRnois(&((*A)->fd), mot); // Insert in the right subtree
-        if (status != 0) {
+        if (status != 0)
+        {
             return status;
         }
         if ((*A)->fd != NULL && (*A)->fd->nb_occ > (*A)->nb_occ) // The priority of the inserted node is greater
