@@ -22,5 +22,9 @@ int main()
 
     generate_pdf("arbre", arbre);
 
+    List list_of_nodes = NULL;
+    int count = extract_priorite_max(&arbre, &list_of_nodes);
+    printf("Number of nodes extracted: %d\n", count);
+    generate_pdf("extracted", arbre);
     return 0;
 }

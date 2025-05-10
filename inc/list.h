@@ -2,6 +2,7 @@
 #define LIST_H
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "abrnois.h"
 
 typedef struct _cell {
@@ -17,6 +18,14 @@ typedef struct _cell {
 Cell *allocate_cell(Node *);
 
 /**
+ * @brief Free a cell.
+ * 
+ * @param C the cell to free
+ * @return int 0 on success, 1 on failure
+ */
+int free_cell(Cell *);
+
+/**
  * @brief Extract all the nodes from the tree that has the same maximum priority.
  * 
  * @param A the tree to extract from
@@ -24,6 +33,6 @@ Cell *allocate_cell(Node *);
  * 
  * @return int number of nodes extracted
  */
-int extrait_priorite_max(ABRnois *, List *);
+int extract_priorite_max(ABRnois *, List *);
 
 #endif // LIST_H

@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "abrnois.h"
 
 Node *allocate_node(char *mot)
@@ -20,6 +17,17 @@ Node *allocate_node(char *mot)
     new_noeud->fd = NULL;
     new_noeud->fg = NULL;
     return new_noeud;
+}
+
+int free_node(Node *n)
+{
+    if (n == NULL)
+    {
+        return 1;
+    }
+    free(n->mot);
+    free(n);
+    return 0;
 }
 
 void rotation_gauche(ABRnois *A)

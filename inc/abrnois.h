@@ -1,6 +1,10 @@
 #ifndef ABRNOIS_H
 #define ABRNOIS_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 typedef struct _node
 {
     char *mot;
@@ -15,6 +19,14 @@ typedef struct _node
  * @return Node* the allocated node
  */
 Node *allocate_node(char *);
+
+/**
+ * @brief Free the given node.
+ * 
+ * @param n the node to free
+ * @return int 0 on success, 1 on failure
+ */
+int free_node(Node *);
 
 /**
  * @brief Perform a left rotation on the given tree.
