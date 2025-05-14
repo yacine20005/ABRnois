@@ -84,3 +84,36 @@ int extract_priorite_max(ABRnois *A, List *L)
     }
     return count; // Return the number of nodes extracted
 }
+
+int extract_priorite_max_recursive(ABRnois *A, List *L, int max_priority){
+    if (*A == NULL){
+        return 0;
+    }
+    int count = 0;
+    count += extract_priorite_max_recursive(&(*A)->fg, L, max_priority);
+    count += extract_priorite_max_recursive(&(*A)->fd, L, max_priority); 
+    if ((*A)->nb_occ == max_priority){
+        Cell *new_cell = allocate_cell(*A);
+        if (new_cell == NULL)
+            return count;
+        new_cell->suivant = *L;
+        *L = new_cell;
+        free(*A);
+        *A = NULL;
+        return count + 1;
+    }
+    return count;
+}
+
+int extract_priorite_max2(ABRnois *A, List *L){
+    if (A == NULL || *A == NULL){
+        printf("Tree is empty\n");
+        return 0;
+    }
+    if (L == NULL){
+        printf("List is NULL\n");
+        return 0;
+    }
+    int max_priority = (*A)->nb_occ;
+    return extract_priorite_max_recursive(A, L, max_priority);
+}
