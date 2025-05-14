@@ -2,15 +2,13 @@ digraph arbre {
     node [shape=record, height=.1]
     edge [tailclip=false, arrowtail=dot, dir=both];
 
-    n0x55ccf0b50430 [label="<fg> | {comment | 4} | <fd>"];
-    n0x55ccf0b502f0 [label="<fg> | {bien | 1} | <fd>"];
-    n0x55ccf0b50390 [label="<fg> | {allez | 1} | <fd>"];
-    n0x55ccf0b503e0 [label="<fg> | {bonjour | 1} | <fd>"];
-    n0x55ccf0b502f0:fg -> n0x55ccf0b50390;
-    n0x55ccf0b502f0:fd -> n0x55ccf0b503e0;
-    n0x55ccf0b502a0 [label="<fg> | {vous | 1} | <fd>"];
-    n0x55ccf0b50340 [label="<fg> | {zoo | 1} | <fd>"];
-    n0x55ccf0b502a0:fd -> n0x55ccf0b50340;
-    n0x55ccf0b50430:fg -> n0x55ccf0b502f0;
-    n0x55ccf0b50430:fd -> n0x55ccf0b502a0;
+    n0x5634127b02a0 [label="<fg> | {vous | 3} | <fd>"];
+    n0x5634127b02f0 [label="<fg> | {bien | 2} | <fd>"];
+    n0x5634127b0390 [label="<fg> | {allez | 1} | <fd>"];
+    n0x5634127b03e0 [label="<fg> | {bonjour | 1} | <fd>"];
+    n0x5634127b02f0:fg -> n0x5634127b0390;
+    n0x5634127b02f0:fd -> n0x5634127b03e0;
+    n0x5634127b0340 [label="<fg> | {zoo | 2} | <fd>"];
+    n0x5634127b02a0:fg -> n0x5634127b02f0;
+    n0x5634127b02a0:fd -> n0x5634127b0340;
 }

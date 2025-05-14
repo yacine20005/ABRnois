@@ -22,98 +22,48 @@ int free_cell(Cell *C)
     return 1;
 }
 
-int extract_priorite_max(ABRnois *A, List *L)
+Node* make_node_leaf(ABRnois *current_node_ptr)
 {
-    if (A == NULL) // If the tree is empty nothing to extract
+    // current_node_ptr is a pointer to a pointer to the current node
+    if (current_node_ptr == NULL || *current_node_ptr == NULL)
     {
-        printf("Tree is empty\n");
-        return 0;
+        return NULL;
     }
-    if (L == NULL) // If the list is NULL can't store the extracted nodes
+
+    printf("The word is: %s\n", (*current_node_ptr)->mot);
+    Node *node = *current_node_ptr; // Dereference to get the current node
+
+    if (node->fg == NULL && node->fd == NULL)
     {
-        printf("List is NULL\n");
-        return 0;
+        *current_node_ptr = NULL; // Detach the node from the tree
+        return node; // Return the node as a leaf
     }
-    int max_priority = (*A)->nb_occ;
-    int count = 0;
-    ABRnois current_extraction;
-    while (*A != NULL && (*A)->nb_occ == max_priority) // While the current node has the maximum priority and exists
-    {
-        current_extraction = *A;
 
-        while (current_extraction->fg != NULL || current_extraction->fd != NULL) // if the current node has children
-        {
-            if (current_extraction->fg == NULL && current_extraction->fd != NULL) // if the current node has only a right child
+    // if the node is not a leaf, we need to make it a leaf by rotating the tree
 
-            {
-                rotation_gauche(A);
-                current_extraction = current_extraction->fg;
-            }
-            else if (current_extraction->fd == NULL && current_extraction->fg != NULL) // if the current node has only a left child
-            {
-                rotation_droite(A);
-                current_extraction = current_extraction->fd;
-            }
-            else if (current_extraction->fg != NULL && current_extraction->fd != NULL) // if the current node has both children
-            {
-                if (current_extraction->fg->nb_occ > current_extraction->fd->nb_occ) // if the left child has a greater priority
-                {
-                    rotation_droite(A);
-                    current_extraction = current_extraction->fd;
-                }
-                else // if the right child has a greater priority or the same priority
-                {
-                    rotation_gauche(A);
-                    current_extraction = current_extraction->fg;
-                }
-            }
-        }
-        Cell *new_cell = allocate_cell((current_extraction)); // Allocate a new cell with the current node
-        if (new_cell == NULL)
-        {
-            return 0;
-        }
-        else
-        {
-            new_cell->suivant = *L; // The new cell is the new head of the list
-            *L = new_cell;          // Update the list head
-            count++;
-            free_node(current_extraction); // Free the current node
-            current_extraction = NULL;     // Set the current node to NULL
+// If only right child exists, rotate left and follow left child
+    if (node->fg == NULL && node->fd != NULL) {
+        rotation_gauche(current_node_ptr);
+        return make_node_leaf(&((*current_node_ptr)->fg));
+    }
+
+    // If only left child exists, rotate right and follow right child
+    else if (node->fd == NULL && node->fg != NULL) {
+        rotation_droite(current_node_ptr);
+        return make_node_leaf(&((*current_node_ptr)->fd));
+    }
+
+    // If both children exist
+    else if (node->fg != NULL && node->fd != NULL) {
+
+        if (node->fg->nb_occ > node->fd->nb_occ) {
+            rotation_droite(current_node_ptr);
+            return make_node_leaf(&((*current_node_ptr)->fd));
+
+        } else {
+            rotation_gauche(current_node_ptr);
+            return make_node_leaf(&((*current_node_ptr)->fg));
         }
     }
-    return count; // Return the number of nodes extracted
-}
-
-int extract_priorite_max_recursive(ABRnois *A, List *L, int max_priority){
-    if (*A == NULL){
-        return 0;
-    }
-    int count = 0;
-    count += extract_priorite_max_recursive(&(*A)->fg, L, max_priority);
-    count += extract_priorite_max_recursive(&(*A)->fd, L, max_priority); 
-    if ((*A)->nb_occ == max_priority){
-        Cell *new_cell = allocate_cell(*A);
-        if (new_cell == NULL)
-            return count;
-        new_cell->suivant = *L;
-        *L = new_cell;
-        free(*A);
-        *A = NULL;
-        return count + 1;
-    }
-    return count;
-}
-
-int extract_priorite_max2(ABRnois *A, List *L){
-    if (A == NULL || *A == NULL){
-        printf("Tree is empty\n");
-        return 0;
-    }
-    if (L == NULL){
-        printf("List is NULL\n");
-        return 0;
-    }
-    int max_priority = (*A)->nb_occ;
-    return extract_priorite_max_recursive(A, L, max_priority);
+    return NULL;
 }

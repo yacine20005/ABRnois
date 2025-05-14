@@ -26,6 +26,14 @@ Cell *allocate_cell(Node *);
 int free_cell(Cell *);
 
 /**
+ * @brief Recursive function to get a node to be a leaf.
+ * 
+ * @param current_node_ptr pointer to the current node to move
+ * @return Node* The node which is now a leaf and detached from the tree
+ */
+Node* make_node_leaf(ABRnois *current_node_ptr);
+
+/**
  * @brief Extract all the nodes from the tree that has the same maximum priority.
  * 
  * @param A the tree to extract from

@@ -118,3 +118,16 @@ int insert_ABRnois(ABRnois *A, char *mot)
         return 0;
     }
 }
+
+int insert_ABRnois_multiple(ABRnois *A, char *mot, int nb_occ)
+{
+    for (int i = 0; i < nb_occ; i++)
+    {
+        int status = insert_ABRnois(A, mot);
+        if (status != 0)
+        {
+            return status;
+        }
+    }
+    return 0;
+}

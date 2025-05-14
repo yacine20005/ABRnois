@@ -66,4 +66,16 @@ void rotation_droite_gauche(ABRnois *);
  */
 int insert_ABRnois(ABRnois *, char *);
 
+
+/**
+ * @brief Perform an ABR insertion of a word multiple times.
+ * 
+ * @param A the tree to insert into
+ * @param mot the word to insert
+ * @param nb_occ the number of occurrences to insert
+ *  
+ * @return int 0 on success, 1 on failure
+ */
+int insert_ABRnois_multiple(ABRnois *, char *, int);
+
 #endif // ABRNOIS_H

@@ -10,21 +10,17 @@ int main()
 {
     ABRnois arbre = NULL;
 
-    insert_ABRnois(&arbre, "vous");
-    insert_ABRnois(&arbre, "bien");
-    insert_ABRnois(&arbre, "zoo");
-    insert_ABRnois(&arbre, "allez");
-    insert_ABRnois(&arbre, "bonjour");
-    for (int i = 0; i < 4; i++)
-    {
-        insert_ABRnois(&arbre, "comment");
-    }
+    insert_ABRnois_multiple(&arbre, "vous", 3);
+    insert_ABRnois_multiple(&arbre, "bien", 2);
+    insert_ABRnois_multiple(&arbre, "zoo", 2);
+    insert_ABRnois_multiple(&arbre, "allez", 1);
+    insert_ABRnois_multiple(&arbre, "bonjour", 1);
+    insert_ABRnois_multiple(&arbre, "comment", 4);
 
     generate_pdf("arbre", arbre);
 
-    List list_of_nodes = NULL;
-    int count = extract_priorite_max(&arbre, &list_of_nodes);
-    printf("Number of nodes extracted: %d\n", count);
+    Node *extracted_node = make_node_leaf(&arbre);
+    printf("Extracted node: %s\n", extracted_node->mot);
     generate_pdf("extracted", arbre);
     return 0;
 }
