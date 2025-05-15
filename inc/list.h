@@ -26,12 +26,28 @@ Cell *allocate_cell(Node *);
 int free_cell(Cell *);
 
 /**
+ * @brief Print the list of cells.
+ * 
+ * @param L the list to print
+ * @return int 0 on success, 1 on failure
+ */
+int print_list(List L);
+
+/**
  * @brief Recursive function to get a node to be a leaf.
  * 
  * @param current_node_ptr pointer to the current node to move
  * @return Node* The node which is now a leaf and detached from the tree
  */
 Node* make_node_leaf(ABRnois *current_node_ptr);
+
+/**
+ * @brief Sort a list of cells in ascending order based on the node's word.
+ *
+ * @param L the list to sort
+ * @return int 0 on success, 1 on failure
+ */
+int sort_list(List *L);
 
 /**
  * @brief Extract all the nodes from the tree that has the same maximum priority.

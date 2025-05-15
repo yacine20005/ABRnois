@@ -16,11 +16,19 @@ int main()
     insert_ABRnois_multiple(&arbre, "allez", 1);
     insert_ABRnois_multiple(&arbre, "bonjour", 1);
     insert_ABRnois_multiple(&arbre, "comment", 4);
+    insert_ABRnois_multiple(&arbre, "yacine", 4);
 
     generate_pdf("arbre", arbre);
 
-    Node *extracted_node = make_node_leaf(&arbre);
-    printf("Extracted node: %s\n", extracted_node->mot);
+    List extracted = NULL;
+    int count = extract_priorite_max(&arbre, &extracted);
+    count += extract_priorite_max(&arbre, &extracted);
+    count += extract_priorite_max(&arbre, &extracted);
+    printf("Extracted %d nodes.\n", count);
+    print_list(extracted);
+    sort_list(&extracted);
+    printf("Sorted list:\n");
+    print_list(extracted);
     generate_pdf("extracted", arbre);
     return 0;
 }

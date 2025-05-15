@@ -2,13 +2,7 @@ digraph arbre {
     node [shape=record, height=.1]
     edge [tailclip=false, arrowtail=dot, dir=both];
 
-    n0x5634127b02a0 [label="<fg> | {vous | 3} | <fd>"];
-    n0x5634127b02f0 [label="<fg> | {bien | 2} | <fd>"];
-    n0x5634127b0390 [label="<fg> | {allez | 1} | <fd>"];
-    n0x5634127b03e0 [label="<fg> | {bonjour | 1} | <fd>"];
-    n0x5634127b02f0:fg -> n0x5634127b0390;
-    n0x5634127b02f0:fd -> n0x5634127b03e0;
-    n0x5634127b0340 [label="<fg> | {zoo | 2} | <fd>"];
-    n0x5634127b02a0:fg -> n0x5634127b02f0;
-    n0x5634127b02a0:fd -> n0x5634127b0340;
+    n0x606bd3da23e0 [label="<fg> | {bonjour | 1} | <fd>"];
+    n0x606bd3da2390 [label="<fg> | {allez | 1} | <fd>"];
+    n0x606bd3da23e0:fg -> n0x606bd3da2390;
 }

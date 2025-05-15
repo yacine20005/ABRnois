@@ -55,7 +55,7 @@
 
 ## IV. Extraction du Maximum (abrnois.c)
 
-- [ ] **Implémenter `int extrait_priorite_max(ABRnois * A, Liste * lst)`**
+- [x] **Implémenter `int extrait_priorite_max(ABRnois * A, Liste * lst)`**
   - Vérifier si l'arbre `*A` est vide.
   - Récupérer la priorité maximale `p_max = (*A)->nb_occ`.
   - Initialiser `*lst` à `NULL` et un compteur `count` à 0.
