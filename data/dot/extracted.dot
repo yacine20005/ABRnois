@@ -1,8 +1,0 @@
-digraph arbre {
-    node [shape=record, height=.1]
-    edge [tailclip=false, arrowtail=dot, dir=both];
-
-    n0x606bd3da23e0 [label="<fg> | {bonjour | 1} | <fd>"];
-    n0x606bd3da2390 [label="<fg> | {allez | 1} | <fd>"];
-    n0x606bd3da23e0:fg -> n0x606bd3da2390;
-}

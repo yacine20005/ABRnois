@@ -121,7 +121,6 @@
 
 - [ ] Rédiger une introduction.
 - [ ] Décrire les fonctions implémentées (algorithmes, choix).
-  - Expliquer que j'ai fait le choix de modifier la déclaration de la fonction qui génère le PDF pour qu'elle soit de type `void` à la place de `int` car aucune gestion d'erreur n'est nécessaire le seul problème pouvant survenir étant que le fichier PDF soit vide ce qui n'est pas un problème bloquant pour le programme.
 - [ ] Lister les difficultés rencontrées et solutions.
 - [ ] Indiquer la répartition du travail.
 - [ ] Répondre à la section "Comparaison des méthodes" (si applicable/demandé).

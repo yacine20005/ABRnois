@@ -22,7 +22,7 @@ Node *allocate_node(char *);
 
 /**
  * @brief Free the given node.
- * 
+ *
  * @param n the node to free
  * @return int 0 on success, 1 on failure
  */
@@ -33,28 +33,28 @@ int free_node(Node *);
  *
  * @param A the tree to rotate
  */
-void rotation_gauche(ABRnois *);
+void rotate_left(ABRnois *);
 
 /**
  * @brief Perform a right rotation on the given tree.
  *
  * @param A the tree to rotate
  */
-void rotation_droite(ABRnois *);
+void rotate_right(ABRnois *);
 
 /**
  * @brief Perform a left-right rotation on the given tree.
  *
  * @param A the tree to rotate
  */
-void rotation_gauche_droite(ABRnois *);
+void rotate_left_right(ABRnois *);
 
 /**
  * @brief Perform a right-left rotation on the given tree.
  *
  * @param A the tree to rotate
  */
-void rotation_droite_gauche(ABRnois *);
+void rotate_right_left(ABRnois *);
 
 /**
  * @brief Perform an ABR insertion of a word.
@@ -66,14 +66,13 @@ void rotation_droite_gauche(ABRnois *);
  */
 int insert_ABRnois(ABRnois *, char *);
 
-
 /**
  * @brief Perform an ABR insertion of a word multiple times.
- * 
+ *
  * @param A the tree to insert into
  * @param mot the word to insert
  * @param nb_occ the number of occurrences to insert
- *  
+ *
  * @return int 0 on success, 1 on failure
  */
 int insert_ABRnois_multiple(ABRnois *, char *, int);

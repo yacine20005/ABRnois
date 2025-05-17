@@ -30,7 +30,7 @@ int free_node(Node *n)
     return 0;
 }
 
-void rotation_gauche(ABRnois *A)
+void rotate_left(ABRnois *A)
 {
     if (*A == NULL || (*A)->fd == NULL)
     {
@@ -42,7 +42,7 @@ void rotation_gauche(ABRnois *A)
     *A = pivot;
 }
 
-void rotation_droite(ABRnois *A)
+void rotate_right(ABRnois *A)
 {
     if (*A == NULL || (*A)->fg == NULL)
     {
@@ -54,16 +54,16 @@ void rotation_droite(ABRnois *A)
     *A = pivot;
 }
 
-void rotation_gauche_droite(ABRnois *A)
+void rotate_left_right(ABRnois *A)
 {
-    rotation_gauche(&((*A)->fg));
-    rotation_droite(A);
+    rotate_left(&((*A)->fg));
+    rotate_right(A);
 }
 
-void rotation_droite_gauche(ABRnois *A)
+void rotate_right_left(ABRnois *A)
 {
-    rotation_droite(&((*A)->fd));
-    rotation_gauche(A);
+    rotate_right(&((*A)->fd));
+    rotate_left(A);
 }
 
 int insert_ABRnois(ABRnois *A, char *mot)
@@ -94,7 +94,7 @@ int insert_ABRnois(ABRnois *A, char *mot)
         }
         if ((*A)->fg != NULL && (*A)->fg->nb_occ > (*A)->nb_occ) // The priority of the inserted node is greater
         {
-            rotation_droite(A);
+            rotate_right(A);
         }
         return 0;
     }
@@ -108,7 +108,7 @@ int insert_ABRnois(ABRnois *A, char *mot)
         }
         if ((*A)->fd != NULL && (*A)->fd->nb_occ > (*A)->nb_occ) // The priority of the inserted node is greater
         {
-            rotation_gauche(A);
+            rotate_left(A);
         }
         return 0;
     }

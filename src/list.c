@@ -65,14 +65,14 @@ Node *make_node_leaf(ABRnois *current_node_ptr)
     // If only right child exists, rotate left and follow left child
     if (node->fg == NULL && node->fd != NULL)
     {
-        rotation_gauche(current_node_ptr);
+        rotate_left(current_node_ptr);
         return make_node_leaf(&((*current_node_ptr)->fg));
     }
 
     // If only left child exists, rotate right and follow right child
     else if (node->fd == NULL && node->fg != NULL)
     {
-        rotation_droite(current_node_ptr);
+        rotate_right(current_node_ptr);
         return make_node_leaf(&((*current_node_ptr)->fd));
     }
 
@@ -83,13 +83,13 @@ Node *make_node_leaf(ABRnois *current_node_ptr)
         // If the left child has a higher occurrence,
         if (node->fg->nb_occ > node->fd->nb_occ)
         {
-            rotation_droite(current_node_ptr);
+            rotate_right(current_node_ptr);
             return make_node_leaf(&((*current_node_ptr)->fd));
         }
         // If the right child has a higher occurrence or they are equal
         else
         {
-            rotation_gauche(current_node_ptr);
+            rotate_left(current_node_ptr);
             return make_node_leaf(&((*current_node_ptr)->fg));
         }
     }
@@ -124,17 +124,17 @@ int sort_list(List *L)
     return 0;
 }
 
-int extract_priorite_max(ABRnois *A, List *L)
+int extract_maximum_priority(ABRnois *A, List *L)
 {
     if (A == NULL || *A == NULL)
     {
         return 0;
     }
 
-    int max_occ = (*A)->nb_occ; 
+    int max_occ = (*A)->nb_occ;
     int count = 0;
 
-    while((*A) != NULL && (*A)->nb_occ == max_occ)
+    while ((*A) != NULL && (*A)->nb_occ == max_occ)
     {
         Node *node = make_node_leaf(A);
         if (node == NULL)
