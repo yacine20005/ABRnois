@@ -2,6 +2,7 @@
 #include "graphics.h"
 #include "list.h"
 #include "fetch.h"
+#include "loop.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,67 +11,34 @@
 
 int main(int argc, char *argv[])
 {
-    if (argc < 3)
-    {
-        fprintf(stderr, "Usage: %s frequents.txt corpus_1.txt [corpus_2.txt ... corpus_n.txt]\n", argv[0]);
+    int generate_graphics = 0;
+    int words_limit = -1;
+    int arg_index = 1;
+    // Analyse des options
+    while (arg_index < argc && argv[arg_index][0] == '-') {
+        if (strcmp(argv[arg_index], "-g") == 0) {
+            generate_graphics = 1;
+            arg_index++;
+        } else if (strcmp(argv[arg_index], "-n") == 0 && arg_index + 1 < argc) {
+            words_limit = atoi(argv[arg_index + 1]);
+            arg_index += 2;
+        } else {
+            fprintf(stderr, "Option inconnue : %s\n", argv[arg_index]);
+            return 1;
+        }
+    }
+    if (argc - arg_index < 2) {
+        fprintf(stderr, "Usage: %s [-g] [-n p] frequents.txt corpus_1.txt [corpus_2.txt ... corpus_n.txt]\n", argv[0]);
         return 1;
     }
-    char *export_filename = argv[1];
+    char *export_filename = argv[arg_index];
     ABRnois arbre = NULL;
     int word_count = 0;
-    int error = 0;
 
-    for (int i = 2; i < argc; i++)
+    if (loop_fetch_files(&arbre, &word_count, argc, argv) != 0)
     {
-        FILE *text_file = fopen(argv[i], "r");
-        if (!text_file)
-        {
-            fprintf(stderr, "Error opening file %s\n", argv[i]);
-            continue;
-        }
-        char *buffer = init_buffer();
-        int current_char;
-        while ((current_char = fgetc(text_file)) != EOF)
-        {
-            if (is_char(current_char))
-            {
-                add_buffer(buffer, current_char);
-            }
-            else
-            {
-                if (is_valid_word(buffer))
-                {
-                    error = insert_ABRnois(&arbre, buffer);
-                    if (error != 0)
-                    {
-                        fprintf(stderr, "Error inserting word %s\n", buffer);
-                        free(buffer);
-                        fclose(text_file);
-                        free_tree(&arbre);
-                        return 1;
-                    }
-                    word_count++;
-                }
-                clear_buffer(buffer);
-            }
-        }
-        if (is_valid_word(buffer))
-        {
-            error = insert_ABRnois(&arbre, buffer);
-            if (error != 0)
-            {
-                fprintf(stderr, "Error inserting word %s\n", buffer);
-                free(buffer);
-                fclose(text_file);
-                free_tree(&arbre);
-                return 1;
-            }
-            word_count++;
-        }
-        free(buffer);
-        fclose(text_file);
+        return 1;
     }
-
     FILE *export = fopen(export_filename, "w");
     if (!export)
     {
@@ -84,15 +52,11 @@ int main(int argc, char *argv[])
         extract_maximum_priority(&arbre, &node_list);
     }
     sort_list(&node_list);
-    Cell *cell = node_list;
-    while (cell != NULL)
+    if (export_list_file(export_filename, node_list, word_count) != 0)
     {
-        double pourcentage = (100.0 * cell->n->nb_occ / word_count);
-        fprintf(export, "%s %.2f\n", cell->n->mot, pourcentage);
-        cell = cell->suivant;
+        fprintf(stderr, "Error exporting list to file\n");
+        free_tree(&arbre);
+        return 1;
     }
-    free_list(&node_list);
-    free_tree(&arbre);
-    fclose(export);
     return 0;
 }
