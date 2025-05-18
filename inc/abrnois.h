@@ -29,6 +29,14 @@ Node *allocate_node(char *);
 int free_node(Node *);
 
 /**
+ * @brief Free the entire tree.
+ *
+ * @param A the tree to free
+ * @return int 0 on success, 1 on failure
+ */
+int free_tree(ABRnois *);
+
+/**
  * @brief Perform a left rotation on the given tree.
  *
  * @param A the tree to rotate

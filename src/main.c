@@ -16,88 +16,83 @@ int main(int argc, char *argv[])
         return 1;
     }
     char *export_filename = argv[1];
-    ABRnois *arbre = NULL;
-    int total_mots = 0;
+    ABRnois arbre = NULL;
+    int word_count = 0;
     int error = 0;
 
     for (int i = 2; i < argc; i++)
     {
-        FILE *f = fopen(argv[i], "r");
-        if (!f)
+        FILE *text_file = fopen(argv[i], "r");
+        if (!text_file)
         {
             fprintf(stderr, "Error opening file %s\n", argv[i]);
             continue;
         }
         char *buffer = init_buffer();
-        int c;
-        while ((c = fgetc(f)) != EOF)
+        int current_char;
+        while ((current_char = fgetc(text_file)) != EOF)
         {
-            if (is_char(c))
+            if (is_char(current_char))
             {
-                add_buffer(buffer, c);
+                add_buffer(buffer, current_char);
             }
             else
             {
                 if (is_valid_word(buffer))
                 {
-                    error = insert_ABRnois(arbre, buffer);
+                    error = insert_ABRnois(&arbre, buffer);
                     if (error != 0)
                     {
                         fprintf(stderr, "Error inserting word %s\n", buffer);
                         free(buffer);
-                        fclose(f);
-                        liberer_ABRnois(arbre);
+                        fclose(text_file);
+                        free_tree(&arbre);
                         return 1;
                     }
-                    total_mots++;
+                    word_count++;
                 }
                 clear_buffer(buffer);
             }
         }
         if (is_valid_word(buffer))
         {
-            error = insert_ABRnois(arbre, buffer);
+            error = insert_ABRnois(&arbre, buffer);
             if (error != 0)
             {
                 fprintf(stderr, "Error inserting word %s\n", buffer);
                 free(buffer);
-                fclose(f);
-                liberer_ABRnois(arbre);
+                fclose(text_file);
+                free_tree(&arbre);
                 return 1;
             }
-            total_mots++;
+            word_count++;
         }
         free(buffer);
-        fclose(f);
+        fclose(text_file);
     }
 
-    FILE *out = fopen(export_filename, "w");
-    if (!out)
+    FILE *export = fopen(export_filename, "w");
+    if (!export)
     {
         fprintf(stderr, "Error opening output file %s\n", export_filename);
-        liberer_ABRnois(arbre);
+        free_tree(&arbre);
         return 1;
     }
-    List liste = NULL;
+    List node_list = NULL;
     while (arbre != NULL)
     {
-        int nb = extract_maximum_priority(arbre, &liste);
-        sort_list(&liste);
-        Cell *cell = liste;
-        while (cell != NULL)
-        {
-            double pourcentage = (100.0 * cell->n->nb_occ / total_mots);
-            fprintf(out, "%s %.2f\n", cell->n->mot, pourcentage);
-            cell = cell->suivant;
-        }
-        while (liste != NULL)
-        {
-            Cell *tmp = liste;
-            liste = liste->suivant;
-            free_node(tmp->n);
-            free_cell(tmp);
-        }
+        extract_maximum_priority(&arbre, &node_list);
     }
-    fclose(out);
+    sort_list(&node_list);
+    Cell *cell = node_list;
+    while (cell != NULL)
+    {
+        double pourcentage = (100.0 * cell->n->nb_occ / word_count);
+        fprintf(export, "%s %.2f\n", cell->n->mot, pourcentage);
+        cell = cell->suivant;
+    }
+    free_list(&node_list);
+    free_tree(&arbre);
+    fclose(export);
     return 0;
 }

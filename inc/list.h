@@ -27,6 +27,14 @@ Cell *allocate_cell(Node *);
 int free_cell(Cell *);
 
 /**
+ * @brief Free the entire list.
+ *
+ * @param L the list to free
+ * @return int 0 on success, 1 on failure
+ */
+int free_list(List *);
+
+/**
  * @brief Print the list of cells.
  *
  * @param L the list to print

@@ -22,6 +22,26 @@ int free_cell(Cell *C)
     return 1;
 }
 
+int free_list(List *L)
+{
+    if (L == NULL || *L == NULL)
+    {
+        return 1;
+    }
+
+    Cell *current = *L;
+    Cell *next = NULL;
+
+    while (current != NULL)
+    {
+        next = current->suivant;
+        free_cell(current);
+        current = next;
+    }
+    *L = NULL;
+    return 0;
+}
+
 int print_list(List L)
 {
     if (L == NULL)

@@ -81,18 +81,18 @@
   - Identifier le fichier de sortie, les fichiers corpus.
   - Détecter et traiter les options `-g` et `-n p`.
 
-- [ ] **Initialisation**
+- [x] **Initialisation**
   - `ABRnois A = NULL`.
   - Compteurs (`total_mots`, `pdf_counter_*`).
 
-- [ ] **Lecture des Corpus et Construction de l'Arbre**
+- [x] **Lecture des Corpus et Construction de l'Arbre**
   - Boucler sur les fichiers corpus.
   - Ouvrir, lire mot par mot (gérer casse, ponctuation simple).
   - Pour chaque mot : appeler `insert_ABRnois(&A, mot)`, incrémenter `total_mots`.
   - Si `-g`, appeler `exporte_arbre` après chaque insertion.
   - Fermer les fichiers.
 
-- [ ] **Extraction des mots et Écriture du Fichier de Fréquence**
+- [x] **Extraction des mots et Écriture du Fichier de Fréquence**
   - Ouvrir le fichier `frequents.txt` en écriture.
   - Initialiser une liste pour les résultats complets.
   - Définir la limite d'extraction (`p` ou tous).
@@ -109,7 +109,7 @@
     - Calculer et écrire `mot pourcentage%` dans le fichier de sortie.
   - Fermer le fichier de sortie.
 
-- [ ] **Nettoyage**
+- [] **Nettoyage**
   - Libérer toute la mémoire allouée (nœuds, cellules, chaînes de caractères des mots).
 
 ## VI. Tests et Débogage

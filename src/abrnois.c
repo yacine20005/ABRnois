@@ -30,6 +30,19 @@ int free_node(Node *n)
     return 0;
 }
 
+int free_tree(ABRnois *A)
+{
+    if (*A == NULL)
+    {
+        return 1;
+    }
+    free_tree(&((*A)->fg));
+    free_tree(&((*A)->fd));
+    free_node(*A);
+    *A = NULL;
+    return 0;
+}
+
 void rotate_left(ABRnois *A)
 {
     if (*A == NULL || (*A)->fd == NULL)
