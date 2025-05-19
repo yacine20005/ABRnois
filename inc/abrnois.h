@@ -7,15 +7,15 @@
 
 typedef struct _node
 {
-    char *mot;
-    int nb_occ;
+    char *word;
+    int occurrence_count;
     struct _node *fg, *fd;
 } Node, *ABRnois;
 
 /**
  * @brief Allocate a new node with the given word.
  *
- * @param mot the word to store in the node
+ * @param word the word to store in the node
  * @return Node* the allocated node
  */
 Node *allocate_node(char *);
@@ -68,7 +68,7 @@ void rotate_right_left(ABRnois *);
  * @brief Perform an ABR insertion of a word.
  *
  * @param A the tree to insert into
- * @param mot the word to insert
+ * @param word the word to insert
  *
  * @return int 0 on success, 1 on failure
  */
@@ -78,8 +78,8 @@ int insert_ABRnois(ABRnois *, char *);
  * @brief Perform an ABR insertion of a word multiple times.
  *
  * @param A the tree to insert into
- * @param mot the word to insert
- * @param nb_occ the number of occurrences to insert
+ * @param word the word to insert
+ * @param occurrence_count the number of occurrences to insert
  *
  * @return int 0 on success, 1 on failure
  */

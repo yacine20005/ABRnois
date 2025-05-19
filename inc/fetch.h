@@ -9,50 +9,50 @@
 #define FILENAME_SIZE 256
 
 /**
- * @brief Permet de vérifier si un caractère est valide pour un mot
+ * @brief Checks if a character is valid for a word
  *
- * @param c Le caractère à vérifier
- * @return int 1 si le caractère est valide, 0 sinon
+ * @param c The character to check
+ * @return int 1 if the character is valid, 0 otherwise
  */
 int is_char(char);
 
 /**
- * @brief Convertit un caractère en minuscule
+ * @brief Converts a character to lowercase
  *
- * @param c Le caractère à convertir
- * @return char Le caractère converti
+ * @param c The character to convert
+ * @return char The converted character
  */
 char lower(char);
 
 /**
- * @brief Initialise un buffer
+ * @brief Initializes a buffer
  *
- * @return char* buffer initialisé
+ * @return char* Initialized buffer
  */
 char *init_buffer();
 
 /**
- * @brief Ajoute un caractère à un buffer
- * @param char* Buffer à modifier
- * @param char Caractère à ajouter
+ * @brief Adds a character to a buffer
+ * @param char* Buffer to modify
+ * @param char Character to add
  *
- * @return char* Buffer modifié
+ * @return char* Modified buffer
  */
 char *add_buffer(char *, char);
 
 /**
- * @brief Vide le buffer
- * @param char* Buffer à vider
+ * @brief Clears the buffer
+ * @param char* Buffer to clear
  *
- * @return char* Buffer vidé
+ * @return char* Cleared buffer
  */
 char *clear_buffer(char *);
 
 /**
- * @brief Vérifie si un mot est valide (ne contient que des lettres)
- * @param char* Mot à vérifier
+ * @brief Checks if a word is valid (contains only letters)
+ * @param char* Word to check
  *
- * @return int 1 si valide, 0 sinon
+ * @return int 1 if valid, 0 otherwise
  */
 int is_valid_word(char *);
 

@@ -52,7 +52,7 @@ int print_list(List L)
     Cell *current = L;
     while (current != NULL)
     {
-        printf("%s = %d", current->n->mot, current->n->nb_occ);
+        printf("%s = %d", current->n->word, current->n->occurrence_count);
         current = current->suivant;
         if (current != NULL)
         {
@@ -101,7 +101,7 @@ Node *make_node_leaf(ABRnois *current_node_ptr)
     {
 
         // If the left child has a higher occurrence,
-        if (node->fg->nb_occ > node->fd->nb_occ)
+        if (node->fg->occurrence_count > node->fd->occurrence_count)
         {
             rotate_right(current_node_ptr);
             return make_node_leaf(&((*current_node_ptr)->fd));
@@ -129,9 +129,9 @@ int sort_list(List *L)
     while (current != NULL)
     {
         next = current->suivant;
-        while (next != NULL && next->n->nb_occ == current->n->nb_occ)
+        while (next != NULL && next->n->occurrence_count == current->n->occurrence_count)
         {
-            if (strcmp(current->n->mot, next->n->mot) > 0)
+            if (strcmp(current->n->word, next->n->word) > 0)
             {
                 Node *temp = current->n;
                 current->n = next->n;
@@ -151,10 +151,10 @@ int extract_maximum_priority(ABRnois *A, List *L)
         return 0;
     }
 
-    int max_occ = (*A)->nb_occ;
+    int max_occ = (*A)->occurrence_count;
     int count = 0;
 
-    while ((*A) != NULL && (*A)->nb_occ == max_occ)
+    while ((*A) != NULL && (*A)->occurrence_count == max_occ)
     {
         Node *node = make_node_leaf(A);
         if (node == NULL)

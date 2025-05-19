@@ -25,7 +25,7 @@ void draw_tree(FILE *file, ABRnois tree)
     if (!tree)
         return;
 
-    fprintf(file, "    n%p [label=\"<fg> | {%s | %d} | <fd>\"];\n", tree, tree->mot, tree->nb_occ);
+    fprintf(file, "    n%p [label=\"<fg> | {%s | %d} | <fd>\"];\n", tree, tree->word, tree->occurrence_count);
     draw_tree(file, tree->fg);
     draw_tree(file, tree->fd);
 

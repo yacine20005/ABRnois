@@ -15,6 +15,9 @@ int main(int argc, char *argv[])
     int words_limit = -1;
     int arg_index = 1;
     char filename[FILENAME_SIZE];
+    int delete_count = 0;
+    int word_count = 0;
+    int word_extracted = 0;
 
     while (arg_index < argc && argv[arg_index][0] == '-')
     {
@@ -23,7 +26,7 @@ int main(int argc, char *argv[])
             generate_graphics = 1;
             arg_index++;
         }
-        
+
         else if (strcmp(argv[arg_index], "-n") == 0 && arg_index + 1 < argc)
         {
             words_limit = atoi(argv[arg_index + 1]);
@@ -45,9 +48,8 @@ int main(int argc, char *argv[])
 
     char *export_filename = argv[arg_index];
     ABRnois arbre = NULL;
-    int word_count = 0;
 
-    if (loop_fetch_files(&arbre, &word_count, argc, argv, generate_graphics) != 0)
+    if (loop_fetch_files(&arbre, &word_count, argc, argv, generate_graphics, arg_index + 1) != 0)
     {
         return 1;
     }
@@ -60,21 +62,24 @@ int main(int argc, char *argv[])
         return 1;
     }
     List node_list = NULL;
-    while (arbre != NULL)
+    while (arbre != NULL && (words_limit < 0 || word_extracted < words_limit))
     {
-        extract_maximum_priority(&arbre, &node_list);
+        word_extracted += extract_maximum_priority(&arbre, &node_list);
         if (generate_graphics)
         {
-            snprintf(filename, sizeof(filename), "delete_%d.pdf", arbre->nb_occ);
+            snprintf(filename, sizeof(filename), "delete_%d.pdf", delete_count);
             generate_pdf(filename, arbre);
         }
+        delete_count++;
     }
     sort_list(&node_list);
-    if (export_list_file(export_filename, node_list, word_count) != 0)
+    if (export_list_file(export, node_list, word_extracted) != 0)
     {
         fprintf(stderr, "Error exporting list to file\n");
+        fclose(export);
         free_tree(&arbre);
         return 1;
     }
+    fclose(export);
     return 0;
 }

@@ -1,10 +1,10 @@
 #include "loop.h"
 
-int loop_fetch_files(ABRnois *arbre, int *word_count, int argc, char *argv[], int generate_graphics)
+int loop_fetch_files(ABRnois *arbre, int *word_count, int argc, char *argv[], int generate_graphics, int start_index)
 {
     int error = 0;
     char filename[FILENAME_SIZE];
-    for (int i = 2; i < argc; i++)
+    for (int i = start_index; i < argc; i++)
     {
         FILE *text_file = fopen(argv[i], "r");
         if (!text_file)
@@ -74,8 +74,8 @@ void write_list_file(FILE *export, List node_list, int word_count)
         return;
     }
     write_list_file(export, node_list->suivant, word_count);
-    double pourcentage = (100.0 * node_list->n->nb_occ / word_count);
-    fprintf(export, "%s %.2f%%\n", node_list->n->mot, pourcentage);
+    double pourcentage = (100.0 * node_list->n->occurrence_count / word_count);
+    fprintf(export, "%s %.2f%%\n", node_list->n->word, pourcentage);
 }
 
 int export_list_file(const char *filename, List node_list, int word_count)

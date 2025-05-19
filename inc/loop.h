@@ -13,9 +13,10 @@
  * @param argc Number of arguments
  * @param argv Array of arguments
  * @param generate_graphics Flag to generate graphics
+ * @param start_index Index of the first corpus file in argv
  * @return int 0 on success, 1 on error
  */
-int loop_fetch_files(ABRnois *arbre, int *word_count, int argc, char *argv[], int generate_graphics);
+int loop_fetch_files(ABRnois *arbre, int *word_count, int argc, char *argv[], int generate_graphics, int start_index);
 
 /**
  * @brief Exports the list of words from the ABR to a list

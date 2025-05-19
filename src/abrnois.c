@@ -7,13 +7,13 @@ Node *allocate_node(char *mot)
     {
         return NULL;
     }
-    new_noeud->mot = strdup(mot);
-    if (new_noeud->mot == NULL)
+    new_noeud->word = strdup(mot);
+    if (new_noeud->word == NULL)
     {
         free(new_noeud);
         return NULL;
     }
-    new_noeud->nb_occ = 1;
+    new_noeud->occurrence_count = 1;
     new_noeud->fd = NULL;
     new_noeud->fg = NULL;
     return new_noeud;
@@ -25,7 +25,7 @@ int free_node(Node *n)
     {
         return 1;
     }
-    free(n->mot);
+    free(n->word);
     free(n);
     return 0;
 }
@@ -96,7 +96,7 @@ int insert_ABRnois(ABRnois *A, char *mot)
         return 0;
     }
 
-    int cmp = strcmp(mot, (*A)->mot);
+    int cmp = strcmp(mot, (*A)->word);
 
     if (cmp < 0) // The word is lexicographically smaller
     {
@@ -105,7 +105,7 @@ int insert_ABRnois(ABRnois *A, char *mot)
         {
             return status;
         }
-        if ((*A)->fg != NULL && (*A)->fg->nb_occ > (*A)->nb_occ) // The priority of the inserted node is greater
+        if ((*A)->fg != NULL && (*A)->fg->occurrence_count > (*A)->occurrence_count) // The priority of the inserted node is greater
         {
             rotate_right(A);
         }
@@ -119,7 +119,7 @@ int insert_ABRnois(ABRnois *A, char *mot)
         {
             return status;
         }
-        if ((*A)->fd != NULL && (*A)->fd->nb_occ > (*A)->nb_occ) // The priority of the inserted node is greater
+        if ((*A)->fd != NULL && (*A)->fd->occurrence_count > (*A)->occurrence_count) // The priority of the inserted node is greater
         {
             rotate_left(A);
         }
@@ -127,7 +127,7 @@ int insert_ABRnois(ABRnois *A, char *mot)
     }
     else // The word is already present
     {
-        (*A)->nb_occ++;
+        (*A)->occurrence_count++;
         return 0;
     }
 }
