@@ -1,8 +1,9 @@
 #include "loop.h"
 
-int loop_fetch_files(ABRnois *arbre, int *word_count, int argc, char *argv[])
+int loop_fetch_files(ABRnois *arbre, int *word_count, int argc, char *argv[], int generate_graphics)
 {
     int error = 0;
+    char filename[FILENAME_SIZE];
     for (int i = 2; i < argc; i++)
     {
         FILE *text_file = fopen(argv[i], "r");
@@ -24,6 +25,11 @@ int loop_fetch_files(ABRnois *arbre, int *word_count, int argc, char *argv[])
                 if (is_valid_word(buffer))
                 {
                     error = insert_ABRnois(arbre, buffer);
+                    if (generate_graphics)
+                    {
+                        snprintf(filename, sizeof(filename), "insert_%d.pdf", *word_count);
+                        generate_pdf(filename, *arbre);
+                    }
                     if (error != 0)
                     {
                         fprintf(stderr, "Error inserting word %s\n", buffer);
@@ -40,6 +46,11 @@ int loop_fetch_files(ABRnois *arbre, int *word_count, int argc, char *argv[])
         if (is_valid_word(buffer))
         {
             error = insert_ABRnois(arbre, buffer);
+            if (generate_graphics)
+            {
+                snprintf(filename, sizeof(filename), "insert_%d.pdf", *word_count);
+                generate_pdf(filename, *arbre);
+            }
             if (error != 0)
             {
                 fprintf(stderr, "Error inserting word %s\n", buffer);

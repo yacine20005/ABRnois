@@ -14,31 +14,44 @@ int main(int argc, char *argv[])
     int generate_graphics = 0;
     int words_limit = -1;
     int arg_index = 1;
-    // Analyse des options
-    while (arg_index < argc && argv[arg_index][0] == '-') {
-        if (strcmp(argv[arg_index], "-g") == 0) {
+    char filename[FILENAME_SIZE];
+
+    while (arg_index < argc && argv[arg_index][0] == '-')
+    {
+        if (strcmp(argv[arg_index], "-g") == 0)
+        {
             generate_graphics = 1;
             arg_index++;
-        } else if (strcmp(argv[arg_index], "-n") == 0 && arg_index + 1 < argc) {
+        }
+        
+        else if (strcmp(argv[arg_index], "-n") == 0 && arg_index + 1 < argc)
+        {
             words_limit = atoi(argv[arg_index + 1]);
             arg_index += 2;
-        } else {
+        }
+
+        else
+        {
             fprintf(stderr, "Option inconnue : %s\n", argv[arg_index]);
             return 1;
         }
     }
-    if (argc - arg_index < 2) {
+
+    if (argc - arg_index < 2)
+    {
         fprintf(stderr, "Usage: %s [-g] [-n p] frequents.txt corpus_1.txt [corpus_2.txt ... corpus_n.txt]\n", argv[0]);
         return 1;
     }
+
     char *export_filename = argv[arg_index];
     ABRnois arbre = NULL;
     int word_count = 0;
 
-    if (loop_fetch_files(&arbre, &word_count, argc, argv) != 0)
+    if (loop_fetch_files(&arbre, &word_count, argc, argv, generate_graphics) != 0)
     {
         return 1;
     }
+
     FILE *export = fopen(export_filename, "w");
     if (!export)
     {
@@ -50,6 +63,11 @@ int main(int argc, char *argv[])
     while (arbre != NULL)
     {
         extract_maximum_priority(&arbre, &node_list);
+        if (generate_graphics)
+        {
+            snprintf(filename, sizeof(filename), "delete_%d.pdf", arbre->nb_occ);
+            generate_pdf(filename, arbre);
+        }
     }
     sort_list(&node_list);
     if (export_list_file(export_filename, node_list, word_count) != 0)

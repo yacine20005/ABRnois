@@ -5,7 +5,8 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-#define BUFFER_SIZE 128
+#define BUFFER_SIZE 256
+#define FILENAME_SIZE 256
 
 /**
  * @brief Permet de vérifier si un caractère est valide pour un mot

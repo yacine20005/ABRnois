@@ -4,6 +4,7 @@
 #include "abrnois.h"
 #include "fetch.h"
 #include "list.h"
+#include "graphics.h"
 
 /**
  * @brief Processes corpus files and inserts words into the ABR
@@ -11,9 +12,10 @@
  * @param word_count Pointer to the word counter
  * @param argc Number of arguments
  * @param argv Array of arguments
+ * @param generate_graphics Flag to generate graphics
  * @return int 0 on success, 1 on error
  */
-int loop_fetch_files(ABRnois *arbre, int *word_count, int argc, char *argv[]);
+int loop_fetch_files(ABRnois *arbre, int *word_count, int argc, char *argv[], int generate_graphics);
 
 /**
  * @brief Exports the list of words from the ABR to a list
