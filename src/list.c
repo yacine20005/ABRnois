@@ -1,22 +1,22 @@
 #include "list.h"
 
-Cell *allocate_cell(Node *n)
+Cell *allocate_cell(Node *node)
 {
     Cell *new_cell = malloc(sizeof(Cell));
     if (new_cell == NULL)
     {
         return NULL;
     }
-    new_cell->n = n;
-    new_cell->suivant = NULL;
+    new_cell->n = node;
+    new_cell->next = NULL;
     return new_cell;
 }
 
-int free_cell(Cell *C)
+int free_cell(Cell *cell)
 {
-    if (C != NULL)
+    if (cell != NULL)
     {
-        free(C);
+        free(cell);
         return 0;
     }
     return 1;
@@ -34,7 +34,7 @@ int free_list(List *L)
 
     while (current != NULL)
     {
-        next = current->suivant;
+        next = current->next;
         free_cell(current);
         current = next;
     }
@@ -53,7 +53,7 @@ int print_list(List L)
     while (current != NULL)
     {
         printf("%s = %d", current->n->word, current->n->occurrence_count);
-        current = current->suivant;
+        current = current->next;
         if (current != NULL)
         {
             printf(" -> \n");
@@ -64,20 +64,19 @@ int print_list(List L)
     return 0;
 }
 
-Node *make_node_leaf(ABRnois *current_node_ptr)
+Node *make_node_leaf(ABRnois *node_pointer)
 {
-    // current_node_ptr is a pointer to a pointer to the current node
-    if (current_node_ptr == NULL || *current_node_ptr == NULL)
+    if (node_pointer == NULL || *node_pointer == NULL)
     {
         return NULL;
     }
 
-    Node *node = *current_node_ptr; // Dereference to get the current node
+    Node *node = *node_pointer; // Generate a new pointer to the node
 
     if (node->fg == NULL && node->fd == NULL)
     {
-        *current_node_ptr = NULL; // Detach the node from the tree
-        return node;              // Return the node as a leaf
+        *node_pointer = NULL; // Detach the node from the tree
+        return node;          // Return the node as a leaf
     }
 
     // if the node is not a leaf, we need to make it a leaf by rotating the tree
@@ -85,32 +84,32 @@ Node *make_node_leaf(ABRnois *current_node_ptr)
     // If only right child exists, rotate left and follow left child
     if (node->fg == NULL && node->fd != NULL)
     {
-        rotate_left(current_node_ptr);
-        return make_node_leaf(&((*current_node_ptr)->fg));
+        rotate_left(node_pointer);
+        return make_node_leaf(&((*node_pointer)->fg));
     }
 
     // If only left child exists, rotate right and follow right child
     else if (node->fd == NULL && node->fg != NULL)
     {
-        rotate_right(current_node_ptr);
-        return make_node_leaf(&((*current_node_ptr)->fd));
+        rotate_right(node_pointer);
+        return make_node_leaf(&((*node_pointer)->fd));
     }
 
     // If both children exist
     else if (node->fg != NULL && node->fd != NULL)
     {
 
-        // If the left child has a higher occurrence,
+        // If the left child has a higher occurrence
         if (node->fg->occurrence_count > node->fd->occurrence_count)
         {
-            rotate_right(current_node_ptr);
-            return make_node_leaf(&((*current_node_ptr)->fd));
+            rotate_right(node_pointer);
+            return make_node_leaf(&((*node_pointer)->fd));
         }
         // If the right child has a higher occurrence or they are equal
         else
         {
-            rotate_left(current_node_ptr);
-            return make_node_leaf(&((*current_node_ptr)->fg));
+            rotate_left(node_pointer);
+            return make_node_leaf(&((*node_pointer)->fg));
         }
     }
     return NULL;
@@ -128,35 +127,35 @@ int sort_list(List *L)
 
     while (current != NULL)
     {
-        next = current->suivant;
-        while (next != NULL && next->n->occurrence_count == current->n->occurrence_count)
+        next = current->next;
+        while (next != NULL && next->n->occurrence_count == current->n->occurrence_count) // Sort by occurrence group
         {
-            if (strcmp(current->n->word, next->n->word) > 0)
+            if (strcmp(current->n->word, next->n->word) > 0) 
             {
                 Node *temp = current->n;
                 current->n = next->n;
                 next->n = temp;
             }
-            next = next->suivant;
+            next = next->next;
         }
-        current = current->suivant;
+        current = current->next;
     }
     return 0;
 }
 
-int extract_maximum_priority(ABRnois *A, List *L)
+int extract_maximum_priority(ABRnois *tree, List *L)
 {
-    if (A == NULL || *A == NULL)
+    if (tree == NULL || *tree == NULL)
     {
         return 0;
     }
 
-    int max_occ = (*A)->occurrence_count;
+    int max_occ = (*tree)->occurrence_count;
     int count = 0;
 
-    while ((*A) != NULL && (*A)->occurrence_count == max_occ)
+    while ((*tree) != NULL && (*tree)->occurrence_count == max_occ) // While the current node has the maximum occurrence 
     {
-        Node *node = make_node_leaf(A);
+        Node *node = make_node_leaf(tree);
         if (node == NULL)
         {
             return 0;
@@ -169,7 +168,7 @@ int extract_maximum_priority(ABRnois *A, List *L)
             return 0;
         }
 
-        new_cell->suivant = *L;
+        new_cell->next = *L;
         *L = new_cell;
         count++;
     }

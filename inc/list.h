@@ -3,13 +3,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "abrnois.h"
 #include "graphics.h"
 
 typedef struct _cell
 {
     Node *n;
-    struct _cell *suivant;
+    struct _cell *next;
 } Cell, *List;
 
 /**
@@ -46,10 +47,10 @@ int print_list(List L);
 /**
  * @brief Recursive function to get a node to be a leaf.
  *
- * @param current_node_ptr pointer to the current node to move
+ * @param node_pointer pointer to the current node to move
  * @return Node* The node which is now a leaf and detached from the tree
  */
-Node *make_node_leaf(ABRnois *current_node_ptr);
+Node *make_node_leaf(ABRnois *node_pointer);
 
 /**
  * @brief Sort a list of cells in ascending order based on the node's word.

@@ -2,8 +2,12 @@
 #define FETCH_H
 
 #include <stdio.h>
-#include <ctype.h>
+#include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
+
+#include "abrnois.h"
+#include "list.h"
 
 #define BUFFER_SIZE 256
 #define FILENAME_SIZE 256

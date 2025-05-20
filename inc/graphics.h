@@ -1,11 +1,11 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
-#include "abrnois.h"
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
+#include "abrnois.h"
 
 /**
  * @brief Open or create a DOT file for writing.

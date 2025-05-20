@@ -2,15 +2,15 @@
 
 FILE *open_dot_file(char *file_path)
 {
-    FILE *f = fopen(file_path, "w");
+    FILE *file = fopen(file_path, "w");
 
-    if (!f)
+    if (!file)
     {
         fprintf(stderr, "Error opening file\n");
         return NULL;
     }
 
-    return f;
+    return file;
 }
 
 void write_start(FILE *file)

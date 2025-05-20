@@ -1,10 +1,4 @@
 #include "fetch.h"
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <ctype.h>
-#include "abrnois.h"
-#include "list.h"
 
 int is_char(char c)
 {
@@ -46,14 +40,14 @@ char *clear_buffer(char *buffer)
     return buffer;
 }
 
-int is_valid_word(char *mot)
+int is_valid_word(char *word)
 {
-    if (mot == NULL || *mot == '\0')
+    if (word == NULL || *word == '\0')
         return 0;
 
-    for (int i = 0; mot[i] != '\0'; i++)
+    for (int i = 0; word[i] != '\0'; i++)
     {
-        if (!is_char(mot[i]))
+        if (!is_char(word[i]))
             return 0;
     }
     return 1;
